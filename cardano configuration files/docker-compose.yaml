@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  cardano-node:
+    image: inputoutput/cardano-node:latest
+    container_name: cardano-node
+    volumes:
+      - ./config:/config
+      - ./db:/db
+      - ./socket:/socket
+    ports:
+      - "127.0.0.1:3000:3000"  # Expose port 3000 for communication with the node
+    command: >
+      run
+      --config /config/mainnet-config.json
+      --topology /config/mainnet-topology.json
+      --database-path /db
+      --socket-path /socket/node.socket
+      --host-addr 0.0.0.0
+      --port 3000
